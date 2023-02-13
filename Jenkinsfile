@@ -23,6 +23,11 @@ pipeline {
             }
         }
         stage('3-Deploy') {
+             when {
+                anyOf {
+                    branch "dev"
+                }
+            }
             steps {
                 echo "Start of Stage Deploy..."
                 echo "Deploying......."
