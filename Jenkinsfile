@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-      PROJECT_NAME = "NEptun"
-      OWNER_NAME   = "Bogdan"
+      PROJECT_NAME = "Neptun"
+      OWNER_NAME   = "Denis Astahov"
     }
 
     stages {
@@ -23,9 +23,9 @@ pipeline {
             }
         }
         stage('3-Deploy') {
-            when {
+             when {
                 anyOf {
-                    branch "dev"
+                    branch "main"
                 }
             }
             steps {
