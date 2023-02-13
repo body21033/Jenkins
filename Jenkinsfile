@@ -23,7 +23,7 @@ pipeline {
             }
         }
         stage('3-Deploy') {
-             when {
+            when {
                 anyOf {
                     branch "dev"
                 }
