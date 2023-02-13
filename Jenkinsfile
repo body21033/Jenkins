@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-      PROJECT_NAME = "Neptun"
+      PROJECT_NAME = "NEptun"
       OWNER_NAME   = "Bogdan"
     }
 
