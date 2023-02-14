@@ -5,14 +5,14 @@ pipeline {
       OWNER_NAME   = "Bohdan"
       Log ="console"
       Chng= "changes"
-      Message_OK = """
+      Good_work = """
       *Project/Branch - ${JOB_NAME}*
       \n*Deploy Finished: SUCCESS*
       \nBuild number - ${BUILD_NUMBER}
       \nLog - ${BUILD_URL}${Log}
       \nGit Commit details - ${BUILD_URL}${Chng}
       """
-      Message_NOT_OK = """
+      Bad_work = """
       *Project/Branch - ${JOB_NAME}*
       \n*Deploy Finished: FAILURE*
       \nBuild number - ${BUILD_NUMBER}
@@ -29,7 +29,7 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('2-Test') {
+        stage('2-Tests') {
             steps {
                 echo "Start of Stage Test..."
                 echo "Testing......."
@@ -38,7 +38,7 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('3-Deploy') {
+        stage('3-Notify') {
              when {
                 anyOf {
                     branch "main"
@@ -59,10 +59,10 @@ pipeline {
     }
     post {
         success {
-            telegramSend "$env.Message_OK"
+            telegramSend "$env.Good_work"
                 }
         failure {
-            telegramSend "$env.Message_NOT_OK"
+            telegramSend "$env.Bad_work"
                 }
         }
 }
