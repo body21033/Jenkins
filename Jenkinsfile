@@ -1,8 +1,24 @@
 pipeline {
     agent any
     environment {
-      PROJECT_NAME = "Neptun"
-      OWNER_NAME   = "Denis Astahov"
+      PROJECT_NAME = "Uran238"
+      OWNER_NAME   = "Bohdan"
+      Log ="console"
+      Chng= "changes"
+      Good_work = """
+      *Project/Branch - ${JOB_NAME}*
+      \n*Deploy Finished: SUCCESS*
+      \nBuild number - ${BUILD_NUMBER}
+      \nLog - ${BUILD_URL}${Log}
+      \nGit Commit details - ${BUILD_URL}${Chng}
+      """
+      Bad_work = """
+      *Project/Branch - ${JOB_NAME}*
+      \n*Deploy Finished: FAILURE*
+      \nBuild number - ${BUILD_NUMBER}
+      \nLog - ${BUILD_URL}${Log}
+      \nGit Commit details - ${BUILD_URL}${Chng}
+      """
     }
 
     stages {
@@ -13,7 +29,7 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('2-Test') {
+        stage('2-Tests') {
             steps {
                 echo "Start of Stage Test..."
                 echo "Testing......."
@@ -22,7 +38,7 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('3-Deploy') {
+        stage('3-Notify') {
              when {
                 anyOf {
                     branch "main"
@@ -39,10 +55,14 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('4-Celebrate') {
-            steps {
-                echo "CONGRATULYACIYA!"
-            }
-        }	
+        
     }
+    post {
+        success {
+            telegramSend "$env.Good_work"
+                }
+        failure {
+            telegramSend "$env.Bad_work"
+                }
+        }
 }
