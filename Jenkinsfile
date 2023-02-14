@@ -41,7 +41,7 @@ pipeline {
         }
         stage('4-Notify') {
             steps {
-                telegramSend "CONGRATULYACIYA!"
+                telegramSend "CONGRATULYACIYA"
             }
         }	
     }
