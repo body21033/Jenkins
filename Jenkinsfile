@@ -39,9 +39,9 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('4-Celebrate') {
+        stage('4-Notify') {
             steps {
-                echo "CONGRATULYACIYA!"
+                telegramSend "CONGRATULYACIYA!"
             }
         }	
     }
