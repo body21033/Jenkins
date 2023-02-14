@@ -1,8 +1,24 @@
 pipeline {
     agent any
     environment {
-      PROJECT_NAME = "Neptun"
-      OWNER_NAME   = "Denis Astahov"
+      PROJECT_NAME = "Uran238"
+      OWNER_NAME   = "Bohdan"
+      Log ="console"
+      Chng= "changes"
+      Message_OK = """
+      *Project/Branch - ${JOB_NAME}*
+      \n*Deploy Finished: SUCCESS*
+      \nBuild number - ${BUILD_NUMBER}
+      \nLog - ${BUILD_URL}${Log}
+      \nGit Commit details - ${BUILD_URL}${Chng}
+      """
+      Message_NOT_OK = """
+      *Project/Branch - ${JOB_NAME}*
+      \n*Deploy Finished: FAILURE*
+      \nBuild number - ${BUILD_NUMBER}
+      \nLog - ${BUILD_URL}${Log}
+      \nGit Commit details - ${BUILD_URL}${Chng}
+      """
     }
 
     stages {
@@ -39,10 +55,14 @@ pipeline {
                 echo "End of Stage Build..."
             }
         }
-        stage('4-Notify') {
-            steps {
-                telegramSend "CONGRATULYACIYA"
-            }
-        }	
+        
     }
+    post {
+        success {
+            telegramSend "$env.Message_OK"
+                }
+        failure {
+            telegramSend "$env.Message_NOT_OK"
+                }
+        }
 }
