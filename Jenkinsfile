@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
       PROJECT_NAME = "Uran238"
-      OWNER_NAME   = "Bohdan"
+      OWNER_NAME   = "Bohdan2"
       Log ="console"
       Chng= "changes"
       Good_work = """
